@@ -1,0 +1,28 @@
+services:
+  frontend:
+    image: ghcr.io/maggiesworld/magdi-ai-frontend:alpha
+    ports:
+      - "3000:80"
+    environment:
+      - VITE_APP_ENV=production
+    env_file: .env.prod
+
+  backend:
+    image: ghcr.io/maggiesworld/magdi-ai-backend:alpha
+    env_file: .env.prod
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: magdi_user
+      POSTGRES_PASSWORD: magdi_password
+      POSTGRES_DB: magdi_prod
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+volumes:
+  pg_data:
