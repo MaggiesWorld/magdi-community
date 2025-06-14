@@ -2,17 +2,20 @@
 
 MagDi AI is a smart, OpenAI-powered assistant designed to streamline workflows for professionals in **Software Quality Assurance (QA)** and **Test Automation (TA)**. With features like intelligent query routing, persistent chat threads, and containerized deployment, MagDi helps teams get answers, generate documentation, and boost productivity.
 
+🚀 **Now in Alpha!** Try it locally or install as a PWA on your mobile device.
+
 ---
 
 ## 🚀 Features
 
-- 🔍 **Intelligent Query Routing**: Classifies questions and routes them to the appropriate QA or TA assistant.
-- 💬 **Persistent Sessions**: Maintains user-specific conversation history via threads.
-- 🗃️ **PostgreSQL Integration**: Tracks assistant metadata, threads, and users.
-- 🔒 **Environment Separation**: Clear dev vs. prod config with `.env` and `.env.prod`.
-- 🐳 **Dockerized Deployment**: Spin up development or production environments in one command.
-- ⚙️ **Pluggable Architecture**: Easily extend agents, tools, and interfaces.
-- 🧪 **Test-Friendly**: Built-in unit tests and support for Postman.
+- 🔍 **Agent Selection & Multi-Agent Interaction**
+- ❓ **Answer Inquiries about QA and Automation**
+- 📄 **Generate Software QA Documents**
+- ✅ **Generate Test Cases**
+- 💬 **Persistent Sessions & Threading**
+- 🗃️ **PostgreSQL Integration**
+- 🔒 **Environment Separation: Dev vs Prod**
+- 🐳 **Dockerized Deployment**
 
 ---
 
@@ -152,6 +155,46 @@ Fork, test, and send your PR! Contributions and ideas welcome as MagDi evolves.
 
 Let me know if you’d like this saved to `README.md` or output as a downloadable file.
 
+---
+
+## ℹ️ About and Versioning
+
+MagDi AI v0.1.0 Alpha
+
+📬 Issues? Submit on GitHub or [send feedback](https://forms.gle/h5vuZMoiFyDgtHYe6)
+
+---
+
+## 💚 Support Magdi
+
+If you find Magdi helpful and want to see it grow, please consider supporting the project:
+
+- [☕ Buy Me a Coffee](https://github.com/sponsors/MaggiesWorld)
+- [⭐ GitHub Sponsors](https://buymeacoffee.com/magdiai)
+- [![Open Collective](https://opencollective.com/magdi-ai/tiers/backer/badge.svg?label=backer&color=brightgreen)](https://opencollective.com/magdi-ai)
+- [![LibHunt](https://www.libhunt.com/r/magdi-community)](https://www.libhunt.com/r/magdi-community)
+
+
+---
+
+## 💼 Want a Hosted Version?
+
+We're exploring a hosted version of Magdi — no setup required.
+
+📧 [Register your interest](mailto:magdisolutions@gmail.com)
+
+## 📜 License
+
+This project is licensed under the MIT License. See LICENSE for details.
+
+## 🙏 Acknowledgements
+
+- OpenAI for the Assistants API
+- The open-source community ❤️
+
+## ✨ Contributing
+
+Fork, test, and send your PR! Contributions and ideas welcome as MagDi evolves.
 
 
 
