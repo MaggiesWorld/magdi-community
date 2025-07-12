@@ -1,6 +1,6 @@
 services:
   frontend:
-    image: ghcr.io/maggiesworld/magdi-ai-frontend:1.0.0.0
+    image: ghcr.io/maggiesworld/magdi-ai-frontend:v1.0.0.0
     ports:
       - "3000:80"
     environment:
@@ -8,7 +8,7 @@ services:
     env_file: .env.prod
 
   backend:
-    image: ghcr.io/maggiesworld/magdi-ai-backend:1.0.0.0
+    image: ghcr.io/maggiesworld/magdi-ai-backend:v1.0.0.0
     env_file: .env.prod
     ports:
       - "5000:5000"
