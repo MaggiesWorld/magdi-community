@@ -43,7 +43,7 @@ Ensure you have Docker and Docker Compose installed on your machine:
 - Secret key for user auth (Flask)
 
 ### SaaS Version
-- [MagDi SaaS](https://magdi-ai.com) is available for use without setup. Just sign up and start using it!
+- [MagDi SaaS](https://magdi-frontend.vercel.app/login) is available for use without setup. Just sign up and start using it!
 
 This version provides complimentary access to the MagDi AI assistant with all features enabled.
 
@@ -76,7 +76,7 @@ python -c "import secrets; print(secrets.token_hex(32))"
 
 ### 3. Run MagDi Community in Production Mode
 
-docker-compose --env-file .env.prod -f docker-compose.prod.yml up
+docker-compose --env-file .env.prod -f docker-compose.yml up
 
 This will launch:
 
