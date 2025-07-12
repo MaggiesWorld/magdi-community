@@ -2,7 +2,7 @@
 
 MagDi AI is a smart, OpenAI-powered assistant designed to streamline workflows for professionals in **Software Quality Assurance (QA)** and **Test Automation (TA)**. With features like intelligent query routing, persistent chat threads, and containerized deployment, MagDi helps teams get answers, generate documentation, and boost productivity.
 
-🚀 **Now in Alpha!** Try it locally or install as a PWA on your mobile device.
+🚀 **Now in Release 1.0** Try it locally or install as a PWA, SaaS or on your mobile device.
 
 ---
 
@@ -12,6 +12,8 @@ MagDi AI is a smart, OpenAI-powered assistant designed to streamline workflows f
 - ❓ **Answer Inquiries about QA and Automation**
 - 📄 **Generate Software QA Documents**
 - ✅ **Generate Test Cases**
+- 📋 **Clipboard Copy for Easy Sharing**
+- 🖥️ **Analyze Test Results**
 - 💬 **Persistent Sessions & Threading**
 - 🗃️ **PostgreSQL Integration**
 - 🔒 **Environment Separation: Dev vs Prod**
@@ -32,14 +34,24 @@ MagDi AI is a smart, OpenAI-powered assistant designed to streamline workflows f
 
 ## ⚙️ Prerequisites
 
-- [Docker](https://www.docker.com/)
+### Docker Installation
+Ensure you have Docker and Docker Compose installed on your machine:
+
+- - [Docker](https://www.docker.com/)
 - [Docker Compose](https://docs.docker.com/compose/)
 - OpenAI API key
 - Secret key for user auth (Flask)
 
+### SaaS Version
+- [MagDi SaaS](https://magdi-ai.com) is available for use without setup. Just sign up and start using it!
+
+This version provides complimentary access to the MagDi AI assistant with all features enabled.
+
 ---
 
-## 🛠️ Setup and Run
+## 🛠️ Docker Setup and Run
+
+Bring your own OpenAI API key and secret key for user authentication.
 
 ### 1. Clone the Repository
 
@@ -55,6 +67,7 @@ B.  open .env.prod and update the following:
 
     i.  OPENAI_API_KEY=your_key_here
     ii. X_API_KEY=your_secret_key
+    iii RATE_LIMIT_PER_USER=20 (Set to your desired daily token limit))
 
 Note: The X_API_KEY is used for user authentication in the backend.
 You can generate the secret using the command,
@@ -85,11 +98,23 @@ docker-compose --env-file .env up --build
 
 ## 🧪 API Endpoints
 
-| Method | Endpoint  | Description                         |
-| ------ | --------- | ----------------------------------- |
-| GET    | `/menu`   | Returns QA/TA menu options          |
-| POST   | `/select` | Selects assistant based on category |
-| POST   | `/chat`   | Sends user message to MagDi         |
+| Method | Endpoint                  | Description                         |
+| ------ | ------------------------- | ----------------------------------- |
+| GET    | `/menu`                   | Returns QA/TA menu options          |
+| POST   | `/select`                 | Selects assistant based on category |
+| POST   | `/chat`                   | Sends user message to MagDi         |
+| POST   | `/login`                  | Login existing user                 |    
+| POST   | `/register`               | Register a new user                 |
+| POST   | `/start_conversation`     | Initializes chat conversation       |
+| POST   | `/conversation/upload`    | Upload a file to conversation       |
+| POT    | `/end_conversation_`      | Marks an end to conversation        |
+| GET    | `/validate-user`          | Checks user is valid                |
+| GET    | `/usage`                  | Tracks user's daily token usage     |
+| GET    | `/rate-limit`             | Gets daily token allowance          |
+| GET    | `/version`                | Gets release/version ID             |
+
+
+
 
 ### Example Payload
 
@@ -115,6 +140,10 @@ magdi-ai/
 ├── Dockerfile (backend)
 ├── Dockerfile (frontend)
 └── README.md
+├── examples/
+│   ├── 3-slot-casino-spec.txt
+│   └── 3-slot-casino-testResults.txt
+
 
 ## 🔧 Tips
 
@@ -133,7 +162,7 @@ docker-compose logs -f
 
 ## ℹ️ About and Versioning
 
-MagDi AI v0.1.0 Alpha
+Magdi-AI v1.0.0.0 
 For feedback or bugs, submit issues via GitHub.
 
 ## 📜 License
@@ -159,7 +188,7 @@ Let me know if you’d like this saved to `README.md` or output as a downloadabl
 
 ## ℹ️ About and Versioning
 
-MagDi AI v0.1.0 Alpha
+Magdi-AI v1.0.0.0
 
 📬 Issues? Submit on GitHub or [send feedback](https://forms.gle/h5vuZMoiFyDgtHYe6)
 
