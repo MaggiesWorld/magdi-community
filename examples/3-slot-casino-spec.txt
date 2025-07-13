@@ -1,0 +1,71 @@
+🎰 Functional Specification: 3-Slot Online Casino Game
+
+📌 Overview
+A lightweight web-based slot machine game with three spinning reels. Users can press a "Spin" button to play, and win credits based on symbol combinations.
+
+🧑‍💻 Users
+- No authentication required
+- Anonymous or session-based play
+- Starting balance: 1000 credits (reset per session)
+
+🎮 Game Mechanics
+
+🎡 Reels
+- 3 independent reels
+- Each reel randomly selects 1 symbol from a predefined list
+
+🎰 Symbols
+Each reel contains the same symbols:
+
+| Symbol   | Probability | Payout (x multiplier) |
+|----------|-------------|------------------------|
+| 🍒 Cherry | Common      | 2×                    |
+| 🍋 Lemon  | Common      | 2×                    |
+| 🍉 Melon  | Uncommon    | 3×                    |
+| ⭐ Star   | Rare        | 5×                    |
+| 💎 Diamond| Very Rare   | 10×                   |
+
+*Probability determined via symbol weighting or random draw*
+
+🎯 Winning Rules
+- 3 matching symbols = win (e.g., 🍒🍒🍒)
+- Payout = Bet × Multiplier (see above)
+- Mixed or partial matches = no win
+
+🪙 Betting
+- Fixed bet per spin: 50 credits
+- User cannot spin if balance < 50
+- Balance is updated immediately after each spin
+
+🧾 UI Requirements
+- 🎞 Reels display symbols on spin
+- 🎯 Spin button (disabled if balance too low)
+- 💰 Balance display
+- ✅ Display spin result and outcome:
+  - Symbols
+  - Win/loss
+  - New balance
+
+🔁 Backend (API)
+
+POST /spin
+Trigger a slot spin
+
+Request:
+{
+  "user_id": "12345"
+}
+
+Response:
+{
+  "reels": ["🍒", "🍒", "🍒"],
+  "result": "win",
+  "payout": 100,
+  "new_balance": 1050
+}
+
+🧪 Optional Enhancements
+- 🎲 Adjustable bet per spin
+- 🧮 Statistics tracking (win %, total spent)
+- 🗂 Leaderboard or persistent user history
+- 🔊 Sound + animation (front-end)

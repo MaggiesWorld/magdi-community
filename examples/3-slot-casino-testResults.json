@@ -1,0 +1,86 @@
+{
+    "test_suite": "3-Slot Casino Spin Functionality",
+    "test_type": "Functional UI + API Integration",
+    "date": "2025-07-09",
+    "executed_by": "Automation Bot v1.2",
+    "results": [
+        {
+            "test_case": "Spin button spins the reels and deducts 50 credits",
+            "input": {
+                "user_id": 12345,
+                "balance": 1000
+            },
+            "expected_outcome": "POST /spin is triggered, 3 symbols returned, Balance = 950",
+            "actual_outcome": "Passed",
+            "result": "All validations passed. Spin successful and balance deducted correctly.",
+            "status": "pass"
+        },
+        {
+            "test_case": "Balance updated correctly after winning spin",
+            "input": {
+                "symbols": [
+                    "\ud83c\udf52",
+                    "\ud83c\udf52",
+                    "\ud83c\udf52"
+                ],
+                "initial_balance": 950
+            },
+            "expected_outcome": "Result = win, payout = 100 (50 * 2x), new_balance = 1050",
+            "actual_outcome": "Passed",
+            "result": "Winning spin processed as expected, correct payout applied.",
+            "status": "pass"
+        },
+        {
+            "test_case": "Spin result is loss for non-matching symbols",
+            "input": {
+                "symbols": [
+                    "\ud83c\udf52",
+                    "\ud83c\udf4b",
+                    "\ud83c\udf52"
+                ]
+            },
+            "expected_outcome": "Result = loss, payout = 0",
+            "actual_outcome": "Passed",
+            "result": "No match, no payout, balance correctly deducted.",
+            "status": "pass"
+        },
+        {
+            "test_case": "Payout mismatch for rare win",
+            "input": {
+                "symbols": [
+                    "\u2b50",
+                    "\u2b50",
+                    "\u2b50"
+                ],
+                "initial_balance": 800
+            },
+            "expected_outcome": "Payout = 250 (50 * 5x), new_balance = 1050",
+            "actual_outcome": "Payout returned = 150, new_balance = 950",
+            "failure_reason": "Logic error in payout calculation",
+            "status": "fail"
+        },
+        {
+            "test_case": "Spin button not disabled when balance < 50",
+            "input": {
+                "balance": 40
+            },
+            "expected_outcome": "Spin button should be disabled",
+            "actual_outcome": "Button remains enabled, API call is sent",
+            "failure_reason": "UI logic error \u2014 balance check missing",
+            "status": "fail"
+        },
+        {
+            "test_case": "Missing reel symbols in API response",
+            "input": "POST /spin",
+            "expected_outcome": "Response includes 'reels' field with 3 symbols",
+            "actual_outcome": "Response: {\"result\": \"loss\", \"payout\": 0, \"new_balance\": 900}",
+            "failure_reason": "Automation Failure \u2014 'reels' field missing",
+            "status": "fail"
+        }
+    ],
+    "summary": {
+        "pass": 3,
+        "fail": 3,
+        "blocked": 0
+    }
+}
