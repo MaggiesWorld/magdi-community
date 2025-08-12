@@ -1,6 +1,6 @@
-﻿# 🤖 MagDi AI – The AI Assistant for QA and Test Automation
+﻿# 🤖 Magdi-AI – The AI Assistant for QA and Test Automation
 
-MagDi AI is a smart, OpenAI-powered assistant designed to streamline workflows for professionals in **Software Quality Assurance (QA)** and **Test Automation (TA)**. With features like intelligent query routing, persistent chat threads, and containerized deployment, MagDi helps teams get answers, generate documentation, and boost productivity.
+Magdi-AI is a smart, OpenAI-powered assistant designed to streamline workflows for professionals in **Software Quality Assurance (QA)** and **Test Automation (TA)**. With features like intelligent query routing, persistent chat threads, and containerized deployment, MagDi helps teams get answers, generate documentation, and boost productivity.
 
 🚀 **Now in Release 1.0** Try it locally or install as a PWA, SaaS or on your mobile device.
 
@@ -37,13 +37,13 @@ MagDi AI is a smart, OpenAI-powered assistant designed to streamline workflows f
 ### Docker Installation
 Ensure you have Docker and Docker Compose installed on your machine:
 
-- - [Docker](https://www.docker.com/)
+- [Docker](https://www.docker.com/)
 - [Docker Compose](https://docs.docker.com/compose/)
 - OpenAI API key
 - Secret key for user auth (Flask)
 
 ### SaaS Version
-- [MagDi SaaS](https://magdi-frontend.vercel.app/login) is available for use without setup. Just sign up and start using it!
+- [MagDi SaaS](https://magdi-ai-frontend.fly.dev/) is available for use without setup. Just sign up and start using it!
 
 This version provides complimentary access to the MagDi AI assistant with all features enabled.
 
@@ -56,8 +56,8 @@ Bring your own OpenAI API key and secret key for user authentication.
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/MaggiesWorld/magdi-ai.git
-cd magdi-ai
+git clone https://github.com/MaggiesWorld/magdi-community.git
+cd magdi-community
 
 ### 2. Setup Environment Variables
 
@@ -125,33 +125,104 @@ Afterwards you will automatically be logged in.
 
 docker-compose --env-file .env up --build
 
-## 🧪 API Endpoints
+# Magdi AI Test Project
 
-| Method | Endpoint                  | Description                         |
-| ------ | ------------------------- | ----------------------------------- |
-| GET    | `/menu`                   | Returns QA/TA menu options          |
-| POST   | `/select`                 | Selects assistant based on category |
-| POST   | `/chat`                   | Sends user message to MagDi         |
-| POST   | `/login`                  | Login existing user                 |    
-| POST   | `/register`               | Register a new user                 |
-| POST   | `/start_conversation`     | Initializes chat conversation       |
-| POST   | `/conversation/upload`    | Upload a file to conversation       |
-| POT    | `/end_conversation_`      | Marks an end to conversation        |
-| GET    | `/validate-user`          | Checks user is valid                |
-| GET    | `/usage`                  | Tracks user's daily token usage     |
-| GET    | `/rate-limit`             | Gets daily token allowance          |
-| GET    | `/version`                | Gets release/version ID             |
+UI automation and backend testing for the Magdi AI platform.
 
+## 🧪 API (v2)
 
+### Endpoints
 
+| Method | Path                       | Auth  | Content-Type                  | Notes                                                                                                                                     |
+| ------ | -------------------------- | ----- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| GET    | `/menu`                    | —     | —                             | Returns starter menu/greeting.                                                                                                            |
+| POST   | `/select`                  | —     | `application/json`            | Body: `user_id`, `category`. Returns `assistant_id`, starter message.                                                                     |
+| POST   | `/start_conversation`      | —     | `application/json`            | Body: `user_id`, `assistant_id`, `category`, `agent_name`, `llm_model?`. Returns `conversation_id`.                                       |
+| POST   | `/conversation/upload`     | —     | `multipart/form-data`         | Form fields: `files[]`, `user_id`, `conversation_id`. Saves files to convo.                                                               |
+| POST   | `/chat`                    | —     | `multipart/form-data` **req** | Form fields: `user_id`, `category`, `message`, `conversation_id`, `llm_model?`, optional `files[]`. Uses latest uploaded file as context. |
+| POST   | `/end_conversation`        | —     | `application/json`            | Body: `conversation_id`. Marks conversation completed.                                                                                    |
+| GET    | `/config/rate-limit`       | —     | —                             | Returns daily token allowance.                                                                                                            |
+| GET    | `/usage?user_id=...`       | —     | —                             | Returns usage count + limit.                                                                                                              |
+| GET    | `/version`                 | —     | —                             | Returns `APP_INFO`.                                                                                                                       |
+| GET    | `/metrics`                 | —     | —                             | Prometheus metrics.                                                                                                                       |
+| GET    | `/metrics-update-visitors` | —     | —                             | Updates visitors gauge.                                                                                                                   |
+| GET    | `/metrics-update-tokens`   | —     | —                             | Updates tokens gauge.                                                                                                                     |
+| POST   | `/login`                   | —     | `application/json`            | Body: `email`, `password`.                                                                                                                |
+| POST   | `/register`                | —     | `application/json`            | Body: `email`, `password`, `confirmPassword`.                                                                                             |
+| GET    | `/validate-user`           | ✅ JWT | —                             | Query: `user_id`. Validates user exists.                                                                                                  |
 
-### Example Payload
+> ⚠️ `/chat` now **requires** `multipart/form-data` even if no files are sent. Sending JSON will result in `400`.
 
-{
-  "user_id": "user123",
-  "category": "qa_info",
-  "message": "What is exploratory testing?"
-}
+---
+
+### Typical Flow
+
+#### 1) Select Agent
+
+```bash
+curl -X POST http://localhost:5000/select \
+  -H "Content-Type: application/json" \
+  -d '{
+    "user_id": 1,
+    "category": "<valid-category>"
+  }'
+```
+
+#### 2) Start Conversation
+
+```bash
+curl -X POST http://localhost:5000/start_conversation \
+  -H "Content-Type: application/json" \
+  -d '{
+    "user_id": 1,
+    "assistant_id": "asst_xxx",
+    "category": "<valid-category>",
+    "agent_name": "<AgentName>",
+    "llm_model": "gpt-4"
+  }'
+```
+
+#### 3) Upload File (Optional)
+
+```bash
+curl -X POST http://localhost:5000/conversation/upload \
+  -F "user_id=1" \
+  -F "conversation_id=UUID" \
+  -F "files=@./examples/sample.txt"
+```
+
+#### 4) Chat (Multipart Required)
+
+```bash
+curl -X POST http://localhost:5000/chat \
+  -F "user_id=1" \
+  -F "category=<valid-category>" \
+  -F "message=What does the document contain?" \
+  -F "conversation_id=UUID"
+```
+
+#### 5) End Conversation
+
+```bash
+curl -X POST http://localhost:5000/end_conversation \
+  -H "Content-Type: application/json" \
+  -d '{ "conversation_id": "UUID" }'
+```
+
+---
+
+### Postman Form-Data for `/chat`
+
+* **Text**: `user_id` = `1`
+* **Text**: `category` = `<valid-category>`
+* **Text**: `message` = `What does the document contain?`
+* **Text**: `conversation_id` = `UUID`
+* **Text** (optional): `llm_model` = `gpt-4`
+* **File** (optional): `files[]` = *your file*
+
+---
+
+**Version:** REL.2.0.0.0
 
 ## 📁 Project Structure (Simplified)
 
@@ -191,7 +262,7 @@ docker-compose logs -f
 
 ## ℹ️ About and Versioning
 
-Magdi-AI v1.0.0.0 
+Magdi-AI REL.2.0.0.0 
 For feedback or bugs, submit issues via GitHub.
 
 ## 📜 License
@@ -217,7 +288,7 @@ Let me know if you’d like this saved to `README.md` or output as a downloadabl
 
 ## ℹ️ About and Versioning
 
-Magdi-AI v1.0.0.0
+Magdi-AI REL.2.0.0.0
 
 📬 Issues? Submit on GitHub or [send feedback](https://forms.gle/h5vuZMoiFyDgtHYe6)
 
