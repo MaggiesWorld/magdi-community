@@ -2,7 +2,7 @@
 
 Magdi-AI is a smart, OpenAI-powered assistant designed to streamline workflows for professionals in **Software Quality Assurance (QA)** and **Test Automation (TA)**. With features like intelligent query routing, persistent chat threads, and containerized deployment, MagDi helps teams get answers, generate documentation, and boost productivity.
 
-🚀 **Now in Release 1.0** Try it locally or install as a PWA, SaaS or on your mobile device.
+🚀 **Now in Release REL.2.0.0.0 ** Try it locally or install as a PWA, SaaS or on your mobile device.
 
 ---
 
