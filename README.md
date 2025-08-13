@@ -84,24 +84,24 @@ Here are some example files that will help you get started using Magdi-AI
 
 Scenario: You can use this spec file to test the capabilities of MagDi AI in generating documents and test cases
 1. Copy the spec file to your local machine.
-2. Use the Magdi-AI assistant 'Create QA Documents' to generate a QA document based on the spec.
+2. Use the Magdi-AI assistant 'MagdiWriter' to generate a QA document based on the spec.
    Example command:
-   - Upload the spec file and ask: "Generate QA document for this spec"
+   - Upload the spec file and ask: "Generate QA/Testplan document for this spec"
    - Ask 'Create a comprehensive test plan for this spec'.
 
-   MagDi will generate a QA test plan based on the spec.
+   Magdi will generate a QA test plan based on the spec.
 
 
 - [3-slot-casino-testResults.json](./examples/3-slot-casino-testResults.json) - A sample test results file for the same game.
 
 Scenario: You can use this test results file to test the capabilities of MagDi AI in analyzing test results.
 1. Copy the test results file to your local machine.
-2. Use the Magdi-AI assistant 'Analyze Test Results' to analyze the test results.
+2. Use the Magdi-AI assistant 'MagdiAnalyzer' to analyze the test results.
    Example command:
    - Upload the test results file and ask: "Analyze these test results"
    - Ask 'What are the key findings from these test results?'
 
-   MagDi will analyze the test results and provide insights.
+   Magdi will analyze the test results and provide insights.
 
 ### 3. Run MagDi Community in Production Mode
 
