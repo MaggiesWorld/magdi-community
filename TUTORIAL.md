@@ -11,3 +11,6 @@ MagdiTestGen
 
 MagdiAnalyzer
 - Upload logs or test results to analyze for a quick summary of failures and if the failure is software of automation related.
+
+Example Documents
+\examples
