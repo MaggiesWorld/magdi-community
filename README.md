@@ -2,7 +2,6 @@
 
 Magdi-AI is an AI-powered multi-agent system designed to accelerate **QA**, **Test Automation**, and **Engineering Productivity**.
 
-<<<<<<< HEAD
 Release **3.0.0.0** introduces a unified **Test Generation Wizard**, a **Screen Scrape Engine**, and a new user-facing agent — **MagdiPartner** — focused on pair programming, test updates, and code refinement.
 
 Magdi-AI helps teams:
@@ -13,9 +12,6 @@ Magdi-AI helps teams:
 - Repair and improve failing automated tests
 - Analyze test results
 - Produce QA documentation
-=======
-🚀 **Now in Release REL.2.0.0.0 ** Try it locally or install as a PWA, SaaS or on your mobile device.
->>>>>>> 91785b2b9c795e57c7442077ffa36cc0d4c63261
 
 ---
 
@@ -137,59 +133,7 @@ MAGDI_WORK_DIR=your_work_directory_path
 Generate a secure secret key:
 python -c "import secrets; print(secrets.token_hex(32))"
 
-<<<<<<< HEAD
 Run in Developer Mode:
-=======
-```
-
-### Examples
-
-Here are some example files that will help you get started using Magdi-AI
-
-- [3-slot-casino-spec.txt](./examples/3-slot-casino-spec.txt) - A sample spec file for a 3-slot casino game.
-
-Scenario: You can use this spec file to test the capabilities of MagDi AI in generating documents and test cases
-1. Copy the spec file to your local machine.
-2. Use the Magdi-AI assistant 'MagdiWriter' to generate a QA document based on the spec.
-   Example command:
-   - Upload the spec file and ask: "Generate QA/Testplan document for this spec"
-   - Ask 'Create a comprehensive test plan for this spec'.
-
-   Magdi will generate a QA test plan based on the spec.
-
-
-- [3-slot-casino-testResults.json](./examples/3-slot-casino-testResults.json) - A sample test results file for the same game.
-
-Scenario: You can use this test results file to test the capabilities of MagDi AI in analyzing test results.
-1. Copy the test results file to your local machine.
-2. Use the Magdi-AI assistant 'MagdiAnalyzer' to analyze the test results.
-   Example command:
-   - Upload the test results file and ask: "Analyze these test results"
-   - Ask 'What are the key findings from these test results?'
-
-   Magdi will analyze the test results and provide insights.
-
-### 3. Run MagDi Community in Production Mode
-
-docker-compose --env-file .env.prod -f docker-compose.prod.yml up
-
-This will launch:
-
-ghcr.io/<your-org>/magdi-ai-frontend:alpha
-
-ghcr.io/<your-org>/magdi-ai-backend:alpha
-
-App will be available at: http://localhost:3000
-
-A.  First time Setup:  Register a New Account
-
-    - Enter an email and password to create a new account.
-
-Afterwards you will automatically be logged in.
-
-### 4. Run Locally (For Developers)
-
->>>>>>> 91785b2b9c795e57c7442077ffa36cc0d4c63261
 docker-compose --env-file .env up --build
 
 Application will be available at:
