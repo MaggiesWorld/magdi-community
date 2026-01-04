@@ -1,333 +1,279 @@
-﻿# 🤖 Magdi-AI – The AI Assistant for QA and Test Automation
+﻿# 🤖 Magdi-AI — The QA & Test Automation Assistant (REL 3.0.0.0)
 
-Magdi-AI is a smart, OpenAI-powered assistant designed to streamline workflows for professionals in **Software Quality Assurance (QA)** and **Test Automation (TA)**. With features like intelligent query routing, persistent chat threads, and containerized deployment, MagDi helps teams get answers, generate documentation, and boost productivity.
+Magdi-AI is an AI-powered multi-agent system designed to accelerate **QA**, **Test Automation**, and **Engineering Productivity**.
 
-🚀 **Now in Release 1.0** Try it locally or install as a PWA, SaaS or on your mobile device.
+Release **3.0.0.0** introduces a unified **Test Generation Wizard**, a **Screen Scrape Engine**, and a new user-facing agent — **MagdiPartner** — focused on pair programming, test updates, and code refinement.
 
----
+Magdi-AI helps teams:
 
-## 🚀 Features
-
-- 🔍 **Agent Selection & Multi-Agent Interaction**
-- ❓ **Answer Inquiries about QA and Automation**
-- 📄 **Generate Software QA Documents**
-- ✅ **Generate Test Cases**
-- 📋 **Clipboard Copy for Easy Sharing**
-- 🖥️ **Analyze Test Results**
-- 💬 **Persistent Sessions & Threading**
-- 🗃️ **PostgreSQL Integration**
-- 🔒 **Environment Separation: Dev vs Prod**
-- 🐳 **Dockerized Deployment**
+- Generate new automation frameworks
+- Update and refine existing automation projects
+- Scrape and understand complex UIs
+- Repair and improve failing automated tests
+- Analyze test results
+- Produce QA documentation
 
 ---
 
-## 🏗️ Tech Stack
+## 📜 License
 
-- **Frontend**: React + Vite + Tailwind CSS
-- **Backend**: Python (Flask), Gunicorn
-- **AI**: OpenAI Assistants API
-- **Database**: PostgreSQL
-- **Containerization**: Docker + Docker Compose
-- **Environment**: `dotenv`, `.env`, `.env.prod`
+Magdi-AI Community Edition is released under the **MIT License**.
+
+You are free to:
+
+- Use
+- Modify
+- Distribute
+- Self-host
+
+Under the terms of the MIT License.
+
+See the `LICENSE` file in this repository for full details.
+
+
+## 🚀 Key Features (REL 3.0)
+
+### 🧙 Test Generation Wizard
+
+Create **new** or **updated** test projects using:
+
+- Pasted text
+- Uploaded documents
+- URLs
+- Screen Scrape (Depth-based crawling)
+
+Supports:
+- Manual tests
+- Automated tests
+- Playwright (TS / JS / Python)
+- Cypress
+- Java-based frameworks
+
+Wizard supports both **project creation** and **project update** flows.
 
 ---
 
-## ⚙️ Prerequisites
+### 🕷️ Screen Scrape Engine
 
-### Docker Installation
-Ensure you have Docker and Docker Compose installed on your machine:
+Capture and analyze UI structure agnostically using **screen depth**:
 
-- [Docker](https://www.docker.com/)
-- [Docker Compose](https://docs.docker.com/compose/)
-- OpenAI API key
-- Secret key for user auth (Flask)
+- DOM structure
+- Selectors
+- Forms, buttons, dialogs
+- Cross-page traversal
+- Depth-controlled crawling to avoid over-scraping
 
-### SaaS Version
-- [MagDi SaaS](https://magdi-ai-frontend.fly.dev/) is available for use without setup. Just sign up and start using it!
-
-This version provides complimentary access to the MagDi AI assistant with all features enabled.
+Screen Scrape output feeds directly into Test Generation and Update workflows.
 
 ---
 
-## 🛠️ Docker Setup and Run
+### 🧑‍🤝‍🧑 MagdiPartner — Pair Programming & Test Update Agent
 
-Bring your own OpenAI API key and secret key for user authentication.
+**MagdiPartner** is the primary **user-facing agent** for:
 
-### 1. Clone the Repository
+- Updating existing test projects
+- Refining generated tests
+- Pair programming with the user
+- Reviewing and improving code
+- Diagnosing failing tests
 
-```bash
+MagdiPartner can:
+
+- Explain failures and root causes
+- Propose minimal patches or full file updates
+- Improve selectors and flows
+- Regenerate tests interactively with the user
+
+> ℹ️ Internally, Magdi-AI uses specialized sub-agents to perform update operations. These are not user-facing and are orchestrated automatically by the system.
+
+---
+
+### 📄 Documentation & QA Output
+
+Generate:
+
+- Test Plans
+- Test Cases
+- Acceptance Criteria
+- QA Checklists
+- Analysis of test result files
+
+---
+
+## 🧱 Tech Stack
+
+- **Frontend:** React + Vite + TailwindCSS
+- **Backend:** Python (Flask) + Gunicorn
+- **AI:** OpenAI Assistants API (multi-agent orchestration)
+- **Database:** PostgreSQL
+- **Containerization:** Docker + Docker Compose
+
+---
+
+## ⚙️ Running Magdi-AI Locally
+
+### 1️⃣ Clone the Repository
+
 git clone https://github.com/MaggiesWorld/magdi-community.git
 cd magdi-community
 
-### 2. Setup Environment Variables
 
-A.  copy .env.example to .env.prod
+## Environment Setup
 
-B.  open .env.prod and update the following:
+Copy the example environment file:
+cp .env.example .env
+cp .env.example .env.prod
 
-    i.  OPENAI_API_KEY=your_key_here
-    ii. X_API_KEY=your_secret_key
-    iii RATE_LIMIT_PER_USER=20 (Set to your desired daily token limit))
+Update the following values:
+OPENAI_API_KEY=your_key_here
+X_API_KEY=your_secret_here
+RATE_LIMIT_PER_USER=20
+MAGDI_WORK_DIR=your_work_directory_path
 
-Note: The X_API_KEY is used for user authentication in the backend.
-You can generate the secret using the command,
-
+Generate a secure secret key:
 python -c "import secrets; print(secrets.token_hex(32))"
 
-```
-
-### Examples
-
-Here are some example files that will help you get started using Magdi-AI
-
-- [3-slot-casino-spec.txt](./examples/3-slot-casino-spec.txt) - A sample spec file for a 3-slot casino game.
-
-Scenario: You can use this spec file to test the capabilities of MagDi AI in generating documents and test cases
-1. Copy the spec file to your local machine.
-2. Use the Magdi-AI assistant 'Create QA Documents' to generate a QA document based on the spec.
-   Example command:
-   - Upload the spec file and ask: "Generate QA document for this spec"
-   - Ask 'Create a comprehensive test plan for this spec'.
-
-   MagDi will generate a QA test plan based on the spec.
-
-
-- [3-slot-casino-testResults.json](./examples/3-slot-casino-testResults.json) - A sample test results file for the same game.
-
-Scenario: You can use this test results file to test the capabilities of MagDi AI in analyzing test results.
-1. Copy the test results file to your local machine.
-2. Use the Magdi-AI assistant 'Analyze Test Results' to analyze the test results.
-   Example command:
-   - Upload the test results file and ask: "Analyze these test results"
-   - Ask 'What are the key findings from these test results?'
-
-   MagDi will analyze the test results and provide insights.
-
-### 3. Run MagDi Community in Production Mode
-
-docker-compose --env-file .env.prod -f docker-compose.prod.yml up
-
-This will launch:
-
-ghcr.io/<your-org>/magdi-ai-frontend:alpha
-
-ghcr.io/<your-org>/magdi-ai-backend:alpha
-
-App will be available at: http://localhost:3000
-
-A.  First time Setup:  Register a New Account
-
-    - Enter an email and password to create a new account.
-
-Afterwards you will automatically be logged in.
-
-### 4. Run Locally (For Developers)
-
+Run in Developer Mode:
 docker-compose --env-file .env up --build
 
-# Magdi AI Test Project
+Application will be available at:
+http://localhost:3000
 
-UI automation and backend testing for the Magdi AI platform.
+Run in Production Mode:
+docker-compose --env-file .env.prod -f docker-compose.prod.yml up
 
-## 🧪 API (v2)
 
-### Endpoints
+## 🧪 Test Project (Automation Suite)
 
-| Method | Path                       | Auth  | Content-Type                  | Notes                                                                                                                                     |
-| ------ | -------------------------- | ----- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| GET    | `/menu`                    | —     | —                             | Returns starter menu/greeting.                                                                                                            |
-| POST   | `/select`                  | —     | `application/json`            | Body: `user_id`, `category`. Returns `assistant_id`, starter message.                                                                     |
-| POST   | `/start_conversation`      | —     | `application/json`            | Body: `user_id`, `assistant_id`, `category`, `agent_name`, `llm_model?`. Returns `conversation_id`.                                       |
-| POST   | `/conversation/upload`     | —     | `multipart/form-data`         | Form fields: `files[]`, `user_id`, `conversation_id`. Saves files to convo.                                                               |
-| POST   | `/chat`                    | —     | `multipart/form-data` **req** | Form fields: `user_id`, `category`, `message`, `conversation_id`, `llm_model?`, optional `files[]`. Uses latest uploaded file as context. |
-| POST   | `/end_conversation`        | —     | `application/json`            | Body: `conversation_id`. Marks conversation completed.                                                                                    |
-| GET    | `/config/rate-limit`       | —     | —                             | Returns daily token allowance.                                                                                                            |
-| GET    | `/usage?user_id=...`       | —     | —                             | Returns usage count + limit.                                                                                                              |
-| GET    | `/version`                 | —     | —                             | Returns `APP_INFO`.                                                                                                                       |
-| GET    | `/metrics`                 | —     | —                             | Prometheus metrics.                                                                                                                       |
-| GET    | `/metrics-update-visitors` | —     | —                             | Updates visitors gauge.                                                                                                                   |
-| GET    | `/metrics-update-tokens`   | —     | —                             | Updates tokens gauge.                                                                                                                     |
-| POST   | `/login`                   | —     | `application/json`            | Body: `email`, `password`.                                                                                                                |
-| POST   | `/register`                | —     | `application/json`            | Body: `email`, `password`, `confirmPassword`.                                                                                             |
-| GET    | `/validate-user`           | ✅ JWT | —                             | Query: `user_id`. Validates user exists.                                                                                                  |
+The repository includes a Playwright automation suite covering:
 
-> ⚠️ `/chat` now **requires** `multipart/form-data` even if no files are sent. Sending JSON will result in `400`.
+- Authentication
+- Chat UI
+- Test Generation Wizard
+- Screen Scrape flows
+- Project update scenarios
 
----
+Run all tests:
+npx playwright test
 
-### Typical Flow
+Run a single test:
+npx playwright test tests/01-login.test.ts
 
-#### 1) Select Agent
+Run with browser UI:
+npx playwright test --headed
 
-```bash
-curl -X POST http://localhost:5000/select \
-  -H "Content-Type: application/json" \
-  -d '{
-    "user_id": 1,
-    "category": "<valid-category>"
-  }'
-```
 
-#### 2) Start Conversation
+## 🧩 API Overview (Backend)
 
-```bash
-curl -X POST http://localhost:5000/start_conversation \
-  -H "Content-Type: application/json" \
-  -d '{
-    "user_id": 1,
-    "assistant_id": "asst_xxx",
-    "category": "<valid-category>",
-    "agent_name": "<AgentName>",
-    "llm_model": "gpt-4"
-  }'
-```
+### Core Conversation & Agent APIs
 
-#### 3) Upload File (Optional)
+- `GET  /menu`  
+  Returns starter menu / greeting.
 
-```bash
-curl -X POST http://localhost:5000/conversation/upload \
-  -F "user_id=1" \
-  -F "conversation_id=UUID" \
-  -F "files=@./examples/sample.txt"
-```
+- `POST /select`  
+  Selects an agent category and returns assistant metadata.
 
-#### 4) Chat (Multipart Required)
+- `POST /start_conversation`  
+  Starts a new persistent conversation thread.
 
-```bash
-curl -X POST http://localhost:5000/chat \
-  -F "user_id=1" \
-  -F "category=<valid-category>" \
-  -F "message=What does the document contain?" \
-  -F "conversation_id=UUID"
-```
+- `POST /conversation/upload`  
+  Upload files into an active conversation context.
 
-#### 5) End Conversation
+- `POST /chat`  
+  Sends a user message to the active agent.
 
-```bash
-curl -X POST http://localhost:5000/end_conversation \
-  -H "Content-Type: application/json" \
-  -d '{ "conversation_id": "UUID" }'
-```
+  ⚠️ **Important:**  
+  This endpoint **requires `multipart/form-data`**, even when no files are sent.  
+  Sending JSON will return `400 Bad Request`.
+
+- `POST /end_conversation`  
+  Gracefully closes a conversation thread.
 
 ---
 
-### Postman Form-Data for `/chat`
+### Project & Artifact APIs
 
-* **Text**: `user_id` = `1`
-* **Text**: `category` = `<valid-category>`
-* **Text**: `message` = `What does the document contain?`
-* **Text**: `conversation_id` = `UUID`
-* **Text** (optional): `llm_model` = `gpt-4`
-* **File** (optional): `files[]` = *your file*
+- `GET /api/download?zip_id=<id>&disposable=1`  
+  Downloads a generated or updated project ZIP.
+
+  - `zip_id` maps to a generated artifact
+  - `disposable=1` deletes the ZIP after download
+  - Used by both **create** and **update** project flows
 
 ---
 
-**Version:** REL.2.0.0.0
+### Authentication & User APIs
 
-## 📁 Project Structure (Simplified)
+- `POST /login`  
+  Authenticates a user.
+
+- `POST /register`  
+  Registers a new user account.
+
+- `GET  /validate-user`  
+  Validates an authenticated user session (JWT-based).
+
+---
+
+### System & Metrics APIs
+
+- `GET /version`  
+  Returns backend application version info.
+
+- `GET /config/rate-limit`  
+  Returns daily token usage limits.
+
+- `GET /usage?user_id=<id>`  
+  Returns current token usage for a user.
+
+- `GET /metrics`  
+  Prometheus-compatible metrics endpoint.
+
+- `GET /metrics-update-visitors`  
+  Updates visitor gauge.
+
+- `GET /metrics-update-tokens`  
+  Updates token usage gauge.
+
+
+
+## 🧭 Project Structure (Simplified)
 
 magdi-ai/
 ├── backend/
 │   ├── app.py
-│   ├── database.py
+│   ├── assistants/
+│   ├── routes/
 │   └── ...
 ├── frontend/
 │   ├── src/
 │   └── ...
-├── .env
-├── .env.prod
+├── tests/            # Playwright automation
+├── examples/         # Sample specs & test results
 ├── docker-compose.yml
-├── Dockerfile (backend)
-├── Dockerfile (frontend)
+├── docker-compose.prod.yml
 └── README.md
-├── examples/
-│   ├── 3-slot-casino-spec.txt
-│   └── 3-slot-casino-testResults.txt
 
+## 📜 Version
 
-## 🔧 Tips
-
-Run docker volume ls and docker volume rm to manage DB state during testing.
-
-Use .env.prod.example as a template for production keys.
-
-Logs are printed to stdout; use docker-compose logs to inspect.
-
-Want to reset DB? Remove volume: docker volume rm magdi-ai-db-data
-
-## 🧪 To inspect logs
-
-docker-compose logs -f
-
-
-## ℹ️ About and Versioning
-
-Magdi-AI REL.2.0.0.0 
-For feedback or bugs, submit issues via GitHub.
-
-## 📜 License
-
-This project is licensed under the MIT License. See LICENSE for details.
-```
+Magdi-AI REL 3.0.0.0
 
 ## 🙏 Acknowledgements
 
-- OpenAI for the Assistants API
-
+- OpenAI Assistants API
+- Docker
 - The open-source community ❤️
 
 ## ✨ Contributing
 
-Fork, test, and send your PR! Contributions and ideas welcome as MagDi evolves.
+Fork → Improve → Submit a PR.
+Feedback and ideas are always welcome.
 
----
+## 💚 Support Magdi-AI
 
-Let me know if you’d like this saved to `README.md` or output as a downloadable file.
+If Magdi-AI helps you, consider supporting the project:
 
----
-
-## ℹ️ About and Versioning
-
-Magdi-AI REL.2.0.0.0
-
-📬 Issues? Submit on GitHub or [send feedback](https://forms.gle/h5vuZMoiFyDgtHYe6)
-
----
-
-## 💚 Support Magdi
-
-If you find Magdi helpful and want to see it grow, please consider supporting the project:
-
-- [☕ Buy Me a Coffee](https://github.com/sponsors/MaggiesWorld)
-- [⭐ GitHub Sponsors](https://buymeacoffee.com/magdiai)
-- [![Open Collective](https://opencollective.com/magdi-ai/tiers/backer/badge.svg?label=backer&color=brightgreen)](https://opencollective.com/magdi-ai)
-- [![LibHunt](https://www.libhunt.com/r/magdi-community)](https://www.libhunt.com/r/magdi-community)
-
-
----
-
-## 💼 Want a Hosted Version?
-
-We're exploring a hosted version of Magdi — no setup required.
-
-📧 [Register your interest](mailto:magdisolutions@gmail.com)
-
-## 📜 License
-
-This project is licensed under the MIT License. See LICENSE for details.
-
-## 🙏 Acknowledgements
-
-- OpenAI for the Assistants API
-- The open-source community ❤️
-
-## ✨ Contributing
-
-Fork, test, and send your PR! Contributions and ideas welcome as MagDi evolves.
-
-
-
-
-
-
-
+- ☕ Buy Me a Coffee
+- ⭐ GitHub Sponsors
+- Open Collective
+- LibHunt

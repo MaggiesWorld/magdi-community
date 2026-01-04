@@ -4,6 +4,47 @@ All notable changes to **Magdi-AI** will be documented in this file.
 
 ---
 
+## [v3.0.0.0] - 2026-01-02
+
+### 🌟 Major New Features
+
+- **MagdiCreator Agent (REL-3):** New agent for creating and maintaining manual and automated test assets.
+- **MagdiPartner Agent (REL-3):** Pair programming assistant for coding tasks, supporting multiple programming languages and frameworks.
+- **Automation Project Lifecycle:** Create new automation projects, update existing ones, or overwrite prior versions while preserving project context via conversation IDs.
+- **Screen Scraping & Capture Pipeline:** Optional UI scraping integrated into automation flows, producing capture artifacts, scrape summaries, and selector hints.
+- **TestGen Requirements Preview:** Human-readable preview of resolved TestGen configuration before execution (source, tool, framework, language, technique, scrape settings).
+- **Project Packaging & Auto-Download:** Generated automation projects are written to structured run directories, zipped server-side, and automatically downloaded.
+
+### 🚀 UX & Workflow Improvements
+
+- **Wizard → ChatView Boot Flow:** Seamless transition from MagdiCreator wizard into ChatView with automatic TestGen submission.
+- **Unified Toast Management:** Consolidated notifications for screen capture, project generation, and downloads.
+- **Consistent ChatView Layout:** ChatView renders consistently whether launched directly or via DualChatView.
+- **Improved Source Resolution:** Correct handling of pasted text, uploaded documents, and URLs in TestGen previews.
+
+### 🛠 Technical Improvements
+
+- **Conversation ID Stability:** Capture results, project output, and ZIP exports always written to the same conversation directory.
+- **Request Size Protection:** Character-budget enforcement added to prevent oversized LLM requests (413 errors).
+- **Frontend / Backend Contract Hardening:** Normalized TestGen JSON extraction across wizard, ChatView auto-send, and agent responses.
+- **Docker End-to-End Validation:** Full validation across Dockerized frontend, backend, and database services.
+
+### 🐞 Bug Fixes
+
+- Fixed missing TestGen preview values for document uploads and URLs.
+- Fixed incorrect reuse of conversation IDs during update vs overwrite.
+- Fixed filesystem errors during project ZIP export.
+- Fixed duplicate or lingering toast notifications.
+- Fixed missing static assets (logos, animations, app icons) in production builds.
+
+### 🧪 Validation
+
+- Full regression testing passed for MagdiSage, MagdiWriter, MagdiAnalyzer, authentication, and system navigation.
+- Full system testing passed for MagdiCreator (manual & automation workflows) and MagdiPartner.
+
+---
+
+
 ## [v2.0.0.0] - 2025-08-10
 
 ### 🌟 New Features
