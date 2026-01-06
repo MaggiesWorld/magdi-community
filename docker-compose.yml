@@ -5,11 +5,11 @@ services:
       - "3000:80"
     environment:
       - VITE_APP_ENV=production
-    env_file: .env.prod
+    env_file: .env
 
   backend:
     image: ghcr.io/maggiesworld/magdi-ai-backend:REL.3.0.0.0
-    env_file: .env.prod
+    env_file: .env
     environment:
       - HOST=0.0.0.0
       - PORT=5000
