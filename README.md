@@ -122,13 +122,12 @@ cd magdi-community
 
 Copy the example environment file:
 cp .env.example .env
-cp .env.example .env.prod
 
 Update the following values:
 OPENAI_API_KEY=your_key_here
 X_API_KEY=your_secret_here
 RATE_LIMIT_PER_USER=20
-MAGDI_WORK_DIR=your_work_directory_path
+MAGDI_HOST_WORK_DIR=your_work_directory_path
 
 Generate a secure secret key:
 python -c "import secrets; print(secrets.token_hex(32))"
@@ -140,7 +139,7 @@ Application will be available at:
 http://localhost:3000
 
 Run in Production Mode:
-docker-compose --env-file .env.prod -f docker-compose.prod.yml up
+docker-compose --env-file .env -f docker-compose.yml up
 
 
 ## 🧪 Test Project (Automation Suite)
