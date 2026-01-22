@@ -4,6 +4,47 @@ All notable changes to **Magdi-AI** will be documented in this file.
 
 ---
 
+## [v3.1.0.0] - 2026-01-22
+
+### 🌐 Deployment & Packaging
+
+- **Dual Deployment Support:** Magdi-AI now supports both **Self-Hosted** and **SaaS** deployments from the same codebase.
+- **Deployment-Aware UI:** Application behavior adapts automatically based on `DEPLOYMENT_MODE`:
+  - Self-Hosted mode enables full project generation and downloads.
+  - SaaS mode restricts project creation features while preserving analysis and collaboration capabilities.
+
+### 🚀 UX Improvements
+
+- **Cross-Browser UI Consistency:** Unified color rendering and visual consistency across Chrome, Edge, Safari, and mobile browsers.
+- **Mobile & Touch Scrolling Fixes:** Resolved scrolling issues on mobile and touch devices, including Safari on iPad/iPhone, across Wizard, ChatView, and embedded views.
+- **PWA Branding Updates:** Improved mobile app icon handling and manifest configuration.
+
+### 🛠 Architecture & Guardrails
+
+- **Agent Routing Hardening:**  
+  - Router now selects **top-level agents only**.
+  - Sub-agents are exclusively orchestrated by **MagdiCreator**, preventing unintended cross-agent behavior.
+- **Agent Capability Isolation:**  
+  - MagdiPartner provides in-chat scaffolding and guidance only.
+  - Downloadable project generation is restricted to MagdiCreator workflows.
+
+### 🐞 Bug Fixes
+
+- Fixed nested scroll-container issues causing “gutter-only” scrolling behavior.
+- Fixed frontend runtime errors triggered by unintended agent handoffs.
+- Fixed incorrect agent crossover that could trigger project export outside MagdiCreator.
+- Minor UI, layout, and stability fixes discovered during post-release validation.
+
+### 🧪 Validation
+
+- Verified full functionality in **SaaS** and **Self-Hosted** deployments.
+- Confirmed MagdiCreator workflows:
+  - Manual test creation
+  - Automation project creation and updates
+  - Screen scrape flows with create/update/overwrite paths
+- Confirmed MagdiPartner scaffolds frameworks in-chat without triggering downloads.
+
+
 ## [v3.0.0.0] - 2026-01-02
 
 ### 🌟 Major New Features

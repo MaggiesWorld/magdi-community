@@ -1,8 +1,8 @@
-﻿# 🤖 Magdi-AI — The QA & Test Automation Assistant (REL 3.0.0.0)
+﻿# 🤖 Magdi-AI — The QA & Test Automation Assistant (REL 3.1.0.0)
 
 Magdi-AI is an AI-powered multi-agent system designed to accelerate **QA**, **Test Automation**, and **Engineering Productivity**.
 
-Release **3.0.0.0** introduces a unified **Test Generation Wizard**, a **Screen Scrape Engine**, and a new user-facing agent — **MagdiPartner** — focused on pair programming, test updates, and code refinement.
+Release **3.1.0.0** introduces a unified **Test Generation Wizard**, a **Screen Scrape Engine**, and a new user-facing agent — **MagdiPartner** — focused on pair programming, test updates, and code refinement.
 
 Magdi-AI helps teams:
 
@@ -107,6 +107,44 @@ Generate:
 - **AI:** OpenAI Assistants API (multi-agent orchestration)
 - **Database:** PostgreSQL
 - **Containerization:** Docker + Docker Compose
+
+---
+
+## 🌐 Deployment Modes (REL 3.1.0.0)
+
+Magdi-AI supports **both Self-Hosted and SaaS deployments** from the same codebase.
+
+Deployment behavior is controlled automatically via the `DEPLOYMENT_MODE` setting.
+
+- **Self-Hosted**  
+  Default mode when running locally or when `DEPLOYMENT_MODE` is not set.
+
+- **SaaS**  
+  Hosted mode where certain features are intentionally restricted.
+
+No additional configuration or UI changes are required — Magdi-AI adapts automatically based on deployment mode.
+
+---
+
+## 🔍 Feature Comparison: Self-Hosted vs SaaS
+
+| Feature / Capability                   | Self-Hosted | SaaS  |
+|----------------------------------------|-------------|-------|
+| MagdiPartner (Pair Programming)        | ✅ Yes      | ✅ Yes|
+| MagdiAnalyzer (Test Results Analysis)  | ✅ Yes      | ✅ Yes|
+| MagdiWriter (QA Documentation)         | ✅ Yes      | ✅ Yes|
+| MagdiSage (General Assistance)         | ✅ Yes      | ✅ Yes|
+| MagdiCreator (Test Generation Wizard)  | ✅ Yes      | ❌ No |
+| Create New Automation Frameworks       | ✅ Yes      | ❌ No |
+| Update Existing Automation Projects    | ✅ Yes      | ❌ No |
+| Screen Scrape Engine                   | ✅ Yes      | ❌ No |
+| Download Generated Project Bundles     | ✅ Yes      | ❌ No |
+| Local File System Access               | ✅ Yes      | ❌ No |
+| Zero Setup / Hosted Experience         | ❌ No       | ✅ Yes|
+
+> ℹ️ **Note:**  
+> SaaS mode is designed for exploration, analysis, and collaboration.  
+> Self-Hosted mode unlocks full project generation, updates, and file exports.
 
 ---
 
@@ -255,7 +293,7 @@ magdi-ai/
 
 ## 📜 Version
 
-Magdi-AI REL 3.0.0.0
+Magdi-AI REL 3.1.0.0
 
 ## 🙏 Acknowledgements
 
