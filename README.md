@@ -1,8 +1,28 @@
-﻿# 🤖 Magdi-AI — The QA & Test Automation Assistant (REL 3.1.0.0)
+﻿# 🤖 Magdi-AI — The QA & Test Automation Assistant (REL 3.2.0.0)
+
+## 📑 Table of Contents
+
+- Overview
+- License
+- Key Features (REL 3.x)
+- What’s New in REL 3.2.0.0
+- Tech Stack
+- Deployment Modes
+- Feature Comparison
+- Running Locally
+- Environment Setup
+- Test Project
+- API Overview
+- Project Structure
+- Troubleshooting (Problems & Solutions)
+- Version
+- Contributing
+- Support
+
 
 Magdi-AI is an AI-powered multi-agent system designed to accelerate **QA**, **Test Automation**, and **Engineering Productivity**.
 
-Release **3.1.0.0** introduces a unified **Test Generation Wizard**, a **Screen Scrape Engine**, and a new user-facing agent — **MagdiPartner** — focused on pair programming, test updates, and code refinement.
+Release **3.2.0.0** introduces a unified **Test Generation Wizard**, a **Screen Scrape Engine**, and a new user-facing agent — **MagdiPartner** — focused on pair programming, test updates, and code refinement.
 
 Magdi-AI helps teams:
 
@@ -50,6 +70,25 @@ Supports:
 - Java-based frameworks
 
 Wizard supports both **project creation** and **project update** flows.
+
+---
+
+### 🧙 What's New in REL
+
+
+✨ Improvements in MagdiCreator
+
+✅ Relevant automation settings based on selected tool
+
+✅ Framework auto-pairing based on tool + language
+
+✅ Project selection by project name instead of ID when updating
+
+✅ Project name suggestion feature
+
+✅ PDF upload parsing bug fixed
+
+✅ Improved wizard UX consistency
 
 ---
 
@@ -110,7 +149,7 @@ Generate:
 
 ---
 
-## 🌐 Deployment Modes (REL 3.1.0.0)
+## 🌐 Deployment Modes (REL 3.2.0.0)
 
 Magdi-AI supports **both Self-Hosted and SaaS deployments** from the same codebase.
 
@@ -165,7 +204,7 @@ Update the following values:
 OPENAI_API_KEY=your_key_here
 X_API_KEY=your_secret_here
 RATE_LIMIT_PER_USER=20
-MAGDI_HOST_WORK_DIR=your_work_directory_path
+MAGDI_HOST_WORK_DIR=your_work_directory_path (default ./magdi-runs)
 
 Generate a secure secret key:
 python -c "import secrets; print(secrets.token_hex(32))"
@@ -290,6 +329,31 @@ magdi-ai/
 ├── docker-compose.yml
 ├── docker-compose.prod.yml
 └── README.md
+
+## 🛠 Troubleshooting
+
+### 🔄 Docker Cache Issues
+
+If changes are not reflecting:
+
+Stop containers:
+docker-compose down
+
+Remove volumes:
+docker volume ls
+docker volume rm <volume_name>
+
+Rebuild clean:
+docker-compose --env-file .env up --build --force-recreate
+
+If frontend still shows stale content:
+
+Clear browser cache
+
+Or open in Incognito
+
+Or run:
+docker builder prune
 
 ## 📜 Version
 
