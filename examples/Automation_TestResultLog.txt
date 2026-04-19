@@ -1,0 +1,61 @@
+======================================
+Test Run: magdi-ai REL.2.0.0.0
+Date: 2025-08-27 11:04:32
+Environment: staging (Fly.io)
+Framework: pytest 7.5.0
+======================================
+collected 12 items
+tests/test_auth.py::test_login_valid_user PASSED [ 8%]
+tests/test_auth.py::test_register_new_user PASSED [ 16%]
+tests/test_auth.py::test_login_wrong_password FAILED [ 25%]
+tests/test_auth.py::test_logout_clears_session PASSED [ 33%]
+tests/test_upload.py::test_upload_docx_spec PASSED [ 41%]
+tests/test_upload.py::test_upload_pdf_spec PASSED [ 50%]
+tests/test_upload.py::test_upload_invalid_format ERROR [ 58%]
+tests/test_generate.py::test_generate_table_format PASSED [ 66%]
+tests/test_generate.py::test_generate_gherkin_format FAILED [ 75%]
+tests/test_generate.py::test_generate_json_format PASSED [ 83%]
+tests/test_health.py::test_backend_health_endpoint PASSED [ 91%]
+tests/test_health.py::test_frontend_health_endpoint FAILED [100%]
+================================== FAILURES
+==================================
+__________________________ test_login_wrong_password __________________________
+self = <tests.test_auth.AuthTests object at 0x0000023A7F12E9A0>
+def test_login_wrong_password(self):
+resp = client.post("/api/login", json={"username":"demo","password":"badpass"})
+> assert resp.status_code == 401
+E AssertionError: assert 500 == 401
+E + where 500 = <Response [500 Internal Server Error]>.status_code
+tests/test_auth.py:45: AssertionError
+_______________________ test_generate_gherkin_format __________________________
+self = <tests.test_generate.GenerateTests object at 0x0000023A7F139A0>
+def test_generate_gherkin_format(self):
+doc = {"feature":"Login","steps":["Given user logs in"]}
+result = generate_test(doc, format="gherkin")
+> assert len(result["steps"]) == 5
+E AssertionError: assert 0 == 5
+E + where 0 = len([])
+tests/test_generate.py:72: AssertionError
+______________________ test_frontend_health_endpoint __________________________
+self = <tests.test_health.HealthTests object at 0x0000023A7F140010>
+def test_frontend_health_endpoint(self):
+resp = requests.get("https://magdi-frontend.fly.dev/health")
+> assert resp.status_code == 200
+E AssertionError: assert 503 == 200
+E + where 503 = <Response [503 Service Unavailable]>.status_code
+tests/test_health.py:31: AssertionError
+================================== ERRORS
+=====================================
+_______________________ test_upload_invalid_format ____________________________
+self = <tests.test_upload.UploadTests object at 0x0000023A7F137FA0>
+def test_upload_invalid_format(self):
+> with open("missing-file.xyz") as f:
+E FileNotFoundError: [Errno 2] No such file or directory: 'missing-file.xyz'
+tests/test_upload.py:54: FileNotFoundError
+=========================== short test summary info ===========================
+FAILED tests/test_auth.py::test_login_wrong_password - AssertionError: assert 500 == 401
+ERROR tests/test_upload.py::test_upload_invalid_format - FileNotFoundError: [Errno 2] No
+such file or directory: 'missing-file.xyz'
+FAILED tests/test_generate.py::test_generate_gherkin_format - AssertionError: assert 0 == 5
+FAILED tests/test_health.py::test_frontend_health_endpoint - AssertionError: assert 503 == 200
+========================= 3 failed, 8 passed, 1 error in 18.27s ================

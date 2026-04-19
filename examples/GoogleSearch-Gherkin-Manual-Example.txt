@@ -1,0 +1,213 @@
+GoogleSearch-Gherkin-Manual-ExampleTests.txt
+
+
+Feature: Google Search - Text, Voice, and Image Search
+  As a user,
+  I want to search Google using text, voice, and images
+  So that I can find relevant results efficiently across modalities
+
+  Background:
+    Given the user has a stable internet connection
+    And the Google Search homepage is accessible
+    And the user’s browser permissions for microphone and camera can be managed
+
+  # Text Search
+  Scenario: Basic text search returns results
+    Given the user is on the Google Search homepage
+    When the user enters "weather today" in the search bar
+    And clicks the Search button
+    Then search results relevant to "weather today" are displayed
+    And the results page shows the query in the search input
+    And the number of results and time are displayed
+
+  Scenario: Text search using Enter key
+    Given the user is on the Google Search homepage
+    When the user types "news" in the search bar
+    And presses Enter
+    Then results relevant to "news" are displayed
+
+  Scenario: Text search with autocomplete suggestion
+    Given the user is on the Google Search homepage
+    When the user types "best resta"
+    And selects the autocomplete suggestion "best restaurants near me"
+    Then results relevant to "best restaurants near me" are displayed
+
+  Scenario: Text search with language-specific characters
+    Given the user is on the Google Search homepage
+    When the user searches for "crème brûlée"
+    Then results relevant to "crème brûlée" are displayed
+    And special characters are preserved in the query
+
+  Scenario: Text search with special operators
+    Given the user is on the Google Search homepage
+    When the user searches for "\"machine learning\" site:stanford.edu"
+    Then results are limited to the stanford.edu domain
+    And the exact phrase "machine learning" is respected
+
+  Scenario: Empty text search query
+    Given the user is on the Google Search homepage
+    When the user clicks Search with an empty query
+    Then no results page is loaded
+    And the user remains on the homepage with focus on the search box
+
+  Scenario: Excessively long text search query
+    Given the user is on the Google Search homepage
+    When the user enters a query exceeding the maximum supported length
+    And submits the search
+    Then the app handles it gracefully without breaking layout or throwing client errors
+    And either truncates the query safely or shows an informative message
+
+  # Voice Search
+  Scenario: Voice search permissions granted
+    Given the user is on the Google Search homepage
+    And the device has a working microphone
+    And the browser has microphone permission granted
+    When the user clicks the voice search icon
+    And speaks "nearby coffee shops"
+    Then the spoken phrase is transcribed correctly
+    And results relevant to "nearby coffee shops" are displayed
+
+  Scenario: Voice search permission prompt - allow
+    Given the user is on the Google Search homepage
+    And the browser does not yet have microphone permission
+    When the user clicks the voice search icon
+    And the permission prompt is shown
+    And the user clicks Allow
+    And the user speaks "population of Japan"
+    Then the phrase is transcribed
+    And results relevant to "population of Japan" are displayed
+
+  Scenario: Voice search permission prompt - block
+    Given the user is on the Google Search homepage
+    And the browser does not yet have microphone permission
+    When the user clicks the voice search icon
+    And the permission prompt is shown
+    And the user clicks Block
+    Then the app shows a non-intrusive message indicating microphone access is required
+    And voice recording does not start
+
+  Scenario: Voice search with background noise
+    Given the user is on the Google Search homepage
+    And microphone permission is granted
+    When the user clicks the voice search icon
+    And background noise is present during dictation
+    Then the transcription attempts to capture the intended speech
+    And if unclear, the user is prompted to try again or edit the transcribed query
+
+  Scenario: Voice search with no speech detected
+    Given the user is on the Google Search homepage
+    And microphone permission is granted
+    When the user clicks the voice search icon
+    And remains silent for a while
+    Then the app times out gracefully
+    And shows a message like "No speech detected, try again"
+
+  Scenario: Voice search with unsupported language
+    Given the user is on the Google Search homepage
+    And microphone permission is granted
+    When the user clicks the voice search icon
+    And speaks in a language not supported by the current configuration
+    Then the app shows an appropriate error or fallback
+    And does not crash
+
+  # Image (Picture) Search
+  Scenario: Image search by uploading a file
+    Given the user is on the Google Search homepage
+    And the image search option is available
+    When the user opens image search
+    And uploads a valid JPG image of a landmark
+    Then related image results and visually similar images are displayed
+    And best-guess label or entity is shown if available
+
+  Scenario: Image search via image URL
+    Given the user is on the Google Search image search page
+    When the user pastes a valid image URL
+    And submits the search
+    Then results relevant to the image content are displayed
+
+  Scenario: Image search via drag-and-drop
+    Given the user is on the Google Search image search page
+    When the user drags and drops a PNG image into the search area
+    Then the image is accepted
+    And results relevant to the image content are displayed
+
+  Scenario: Image search with unsupported file type
+    Given the user is on the Google Search image search page
+    When the user attempts to upload a .txt file
+    Then the upload is rejected with a clear validation message
+
+  Scenario: Image search with large image file
+    Given the user is on the Google Search image search page
+    When the user uploads a very large image exceeding size limits
+    Then the app rejects the upload with a helpful message
+    And no crash occurs
+
+  Scenario: Image search with invalid image URL
+    Given the user is on the Google Search image search page
+    When the user pastes an invalid or unreachable image URL
+    And submits
+    Then an error message indicates the URL cannot be accessed or is not an image
+    And no broken results page loads
+
+  # Result Page and Navigation
+  Scenario: Navigate to a result and back
+    Given the user has performed a search for "open source cms"
+    When the user clicks the first organic result
+    And navigates back
+    Then the results page state and query are preserved
+
+  Scenario: SafeSearch toggle affects results
+    Given the user has performed a search
+    When the user toggles SafeSearch on or off
+    Then the results are filtered according to the selected SafeSearch setting
+
+  Scenario: Spelling correction and "Did you mean"
+    Given the user is on the results page
+    When the user searches for "teh weather"
+    Then a suggestion "Did you mean: the weather" is displayed
+    And clicking the suggestion updates results accordingly
+
+  Scenario: Pagination and infinite scroll behavior
+    Given the user is on the results page for "technology trends"
+    When the user navigates to the next page or triggers load more
+    Then additional results load without errors
+    And performance remains acceptable
+
+  Scenario: Network interruption during search
+    Given the user is on the results page
+    When the network connection is interrupted
+    Then an error or offline message is shown
+    And the user can retry the search when the connection returns
+
+  # Accessibility & Internationalization
+  Scenario: Keyboard navigation support
+    Given the user is on the homepage
+    When the user navigates the search box and buttons with the keyboard only
+    Then focus indicators are visible
+    And all critical actions are accessible via keyboard
+
+  Scenario: Screen reader semantics
+    Given a screen reader is enabled
+    When the user navigates the homepage and results page
+    Then form controls and results have appropriate labels and landmarks
+    And voice/ image buttons have accessible names
+
+  Scenario: RTL language query display
+    Given the user interface is set to a right-to-left language
+    When the user searches for "طقس اليوم"
+    Then input alignment and results layout render correctly in RTL
+
+  # Privacy and Permissions
+  Scenario: Revoke microphone permission and retry voice search
+    Given microphone permission was previously granted
+    When the user revokes microphone permission in browser settings
+    And tries voice search again
+    Then a permission prompt or guidance is shown
+    And voice search does not start until permission is granted
+
+  Scenario: Camera permission handling for image capture (if supported)
+    Given the device has a camera
+    And the browser has no camera permission yet
+    When the user tries to capture an image for search
+    Then the browser prompts for camera access
+    And denying access shows a helpful message

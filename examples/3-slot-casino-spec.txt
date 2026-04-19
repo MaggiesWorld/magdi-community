@@ -1,71 +1,168 @@
-🎰 Functional Specification: 3-Slot Online Casino Game
-
+🎰 Functional Specification: 3-Slot Online Casino Game (Extended)
 📌 Overview
-A lightweight web-based slot machine game with three spinning reels. Users can press a "Spin" button to play, and win credits based on symbol combinations.
 
+A web-based slot machine game with full multi-platform support including:
+
+Desktop UI
+Mobile UI (responsive/emulated)
+Backend API services
+Integration workflows
+Database persistence
 🧑‍💻 Users
-- No authentication required
-- Anonymous or session-based play
-- Starting balance: 1000 credits (reset per session)
+Anonymous session-based users
+Session initialized with:
+user_id
+starting balance = 1000 credits
+Session persists across multiple spins
+🎮 Core Game Mechanics (Shared Across All Platforms)
 
-🎮 Game Mechanics
+Same as your original (kept intact):
 
-🎡 Reels
-- 3 independent reels
-- Each reel randomly selects 1 symbol from a predefined list
-
-🎰 Symbols
-Each reel contains the same symbols:
-
-| Symbol   | Probability | Payout (x multiplier) |
-|----------|-------------|------------------------|
-| 🍒 Cherry | Common      | 2×                    |
-| 🍋 Lemon  | Common      | 2×                    |
-| 🍉 Melon  | Uncommon    | 3×                    |
-| ⭐ Star   | Rare        | 5×                    |
-| 💎 Diamond| Very Rare   | 10×                   |
-
-*Probability determined via symbol weighting or random draw*
-
-🎯 Winning Rules
-- 3 matching symbols = win (e.g., 🍒🍒🍒)
-- Payout = Bet × Multiplier (see above)
-- Mixed or partial matches = no win
-
-🪙 Betting
-- Fixed bet per spin: 50 credits
-- User cannot spin if balance < 50
-- Balance is updated immediately after each spin
-
-🧾 UI Requirements
-- 🎞 Reels display symbols on spin
-- 🎯 Spin button (disabled if balance too low)
-- 💰 Balance display
-- ✅ Display spin result and outcome:
-  - Symbols
-  - Win/loss
-  - New balance
-
-🔁 Backend (API)
-
-POST /spin
-Trigger a slot spin
-
-Request:
+3 reels
+Weighted symbols
+Fixed bet = 50
+Win logic
+Balance updates
+🖥 Desktop UI Requirements
+Fully rendered browser UI
+Components:
+Spin button
+Reel display (3 symbols)
+Balance display
+Result message
+Behavior
+Spin triggers API call /spin
+UI updates based on API response
+Button disabled when:
+balance < 50
+request in progress
+Validation Points
+DOM updates correctly after spin
+Button state reflects balance
+Symbols rendered correctly
+📱 Mobile UI Requirements
+Responsive layout OR mobile-emulated browser
+Supports:
+Android viewport
+iOS viewport
+Differences from Desktop
+Layout adapts (stacked reels, resized UI)
+Touch interaction supported
+Validation Points
+UI responsive across viewports
+Same functionality as desktop
+No layout breakage
+🔌 API Requirements
+Endpoint: POST /spin
+Request
 {
-  "user_id": "12345"
+  "user_id": "string"
 }
-
-Response:
+Response
 {
-  "reels": ["🍒", "🍒", "🍒"],
-  "result": "win",
-  "payout": 100,
-  "new_balance": 1050
+  "reels": ["🍒", "🍋", "⭐"],
+  "result": "win" | "lose",
+  "payout": number,
+  "new_balance": number
 }
+Rules
+Deduct bet (50) before evaluating result
+Apply payout only on win
+Return deterministic structure
+Validation Points
+Response schema correctness
+Correct payout calculation
+Balance updates correctly
+Edge case: insufficient balance
+🔗 Integration Requirements
 
-🧪 Optional Enhancements
-- 🎲 Adjustable bet per spin
-- 🧮 Statistics tracking (win %, total spent)
-- 🗂 Leaderboard or persistent user history
-- 🔊 Sound + animation (front-end)
+Integration = UI ↔ API ↔ Database consistency
+
+Workflow: Spin Transaction
+User clicks Spin (UI)
+UI calls /spin (API)
+API:
+validates balance
+computes result
+updates database
+Response returned
+UI reflects updated state
+Validation Points
+UI reflects API response exactly
+API reflects DB state
+No mismatch between:
+displayed balance
+API response
+stored balance
+Additional Flows
+Multiple spins in sequence
+Rapid clicks (debounce / concurrency)
+Session continuity
+🗄 Database Requirements
+Entities
+Users Table
+Field	Type
+user_id	string
+balance	int
+created_at	datetime
+Spins Table
+Field	Type
+spin_id	string
+user_id	string
+reels	json
+result	string
+payout	int
+balance_after	int
+created_at	datetime
+Rules
+Balance must always be >= 0
+Each spin must be persisted
+Balance must match latest spin record
+Validation Points
+DB updated after each spin
+
+Balance consistency:
+
+previous_balance - bet + payout = new_balance
+Spin history correctly stored
+🧪 Cross-Platform Test Expectations
+Desktop
+UI interaction → correct API call → correct rendering
+Mobile
+Same as desktop + responsive validation
+API
+Contract validation
+Business rules
+Integration
+Full flow validation (UI → API → DB)
+Database
+Data integrity
+Transaction correctness
+🎯 Test Coverage Expectations (IMPORTANT FOR MAGDI)
+
+When all platforms are selected:
+
+MUST generate:
+UI tests (desktop + mobile)
+API tests
+Integration tests
+Database validation checks (if DB is referenced)
+MUST NOT return UI-only project when API/integration are present
+🧪 Example Scenarios
+UI + API + DB
+Spin → verify UI symbols
+Verify API response
+Verify DB updated
+API Only
+Call /spin
+Validate schema + business logic
+Integration
+Perform spin via UI
+Validate:
+API response
+DB record
+UI consistency
+Edge Cases
+Balance = 0 → spin blocked
+Rapid spins → no race condition
+Invalid user_id
