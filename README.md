@@ -1,380 +1,91 @@
-﻿# 🤖 Magdi-AI — The QA & Test Automation Assistant (REL 3.2.0.0)
+﻿# 🤖 Magdi-AI — From Idea → Executable Tests
 
-## 📑 Table of Contents
+Magdi-AI is an AI-powered QA assistant that takes your input—**natural language, URLs, or documents**—and delivers **fully executable test projects**.
 
-- Overview
-- License
-- Key Features (REL 3.x)
-- What’s New in REL 3.2.0.0
-- Tech Stack
-- Deployment Modes
-- Feature Comparison
-- Running Locally
-- Environment Setup
-- Test Project
-- API Overview
-- Project Structure
-- Troubleshooting (Problems & Solutions)
-- Version
-- Contributing
-- Support
-
-
-Magdi-AI is an AI-powered multi-agent system designed to accelerate **QA**, **Test Automation**, and **Engineering Productivity**.
-
-Release **3.2.0.0** introduces a unified **Test Generation Wizard**, a **Screen Scrape Engine**, and a new user-facing agent — **MagdiPartner** — focused on pair programming, test updates, and code refinement.
-
-Magdi-AI helps teams:
-
-- Generate new automation frameworks
-- Update and refine existing automation projects
-- Scrape and understand complex UIs
-- Repair and improve failing automated tests
-- Analyze test results
-- Produce QA documentation
+No setup. No boilerplate. No guesswork.
 
 ---
 
-## 📜 License
+## 🚀 What You Can Do
 
-Magdi-AI Community Edition is released under the **MIT License**.
+- Generate automation frameworks:
+  - Playwright (TS / JS / Python)
+  - Cypress (TS / JS)
+  - Selenium (Java / Python / C# / Javascript)
+  - Postman (API testing)
+  - JMeter (performance testing)
 
-You are free to:
-
-- Use
-- Modify
-- Distribute
-- Self-host
-
-Under the terms of the MIT License.
-
-See the `LICENSE` file in this repository for full details.
-
-
-## 🚀 Key Features (REL 3.0)
-
-### 🧙 Test Generation Wizard
-
-Create **new** or **updated** test projects using:
-
-- Pasted text
-- Uploaded documents
-- URLs
-- Screen Scrape (Depth-based crawling)
-
-Supports:
-- Manual tests
-- Automated tests
-- Playwright (TS / JS / Python)
-- Cypress
-- Java-based frameworks
-
-Wizard supports both **project creation** and **project update** flows.
+- Update and refine existing test projects
+- Scrape and understand real applications (UI + flows)
+- Fix failing tests with AI (MagdiPartner)
+- Analyze logs and test results (MagdiAnalyzer)
+- Generate QA documentation (MagdiWriter)
+- Research and explore solutions (MagdiSage)
+- Execute tests using provided instructions by input, URL, or file
 
 ---
 
-### 🧙 What's New in REL
+## ⚡ Quick Start
 
+### SaaS (No Setup)
+👉 Launch instantly
+https://magdi-ai-frontend.fly.dev
 
-✨ Improvements in MagdiCreator
-
-✅ Relevant automation settings based on selected tool
-
-✅ Framework auto-pairing based on tool + language
-
-✅ Project selection by project name instead of ID when updating
-
-✅ Project name suggestion feature
-
-✅ PDF upload parsing bug fixed
-
-✅ Improved wizard UX consistency
-
----
-
-### 🕷️ Screen Scrape Engine
-
-Capture and analyze UI structure agnostically using **screen depth**:
-
-- DOM structure
-- Selectors
-- Forms, buttons, dialogs
-- Cross-page traversal
-- Depth-controlled crawling to avoid over-scraping
-
-Screen Scrape output feeds directly into Test Generation and Update workflows.
-
----
-
-### 🧑‍🤝‍🧑 MagdiPartner — Pair Programming & Test Update Agent
-
-**MagdiPartner** is the primary **user-facing agent** for:
-
-- Updating existing test projects
-- Refining generated tests
-- Pair programming with the user
-- Reviewing and improving code
-- Diagnosing failing tests
-
-MagdiPartner can:
-
-- Explain failures and root causes
-- Propose minimal patches or full file updates
-- Improve selectors and flows
-- Regenerate tests interactively with the user
-
-> ℹ️ Internally, Magdi-AI uses specialized sub-agents to perform update operations. These are not user-facing and are orchestrated automatically by the system.
-
----
-
-### 📄 Documentation & QA Output
-
-Generate:
-
-- Test Plans
-- Test Cases
-- Acceptance Criteria
-- QA Checklists
-- Analysis of test result files
-
----
-
-## 🧱 Tech Stack
-
-- **Frontend:** React + Vite + TailwindCSS
-- **Backend:** Python (Flask) + Gunicorn
-- **AI:** OpenAI Assistants API (multi-agent orchestration)
-- **Database:** PostgreSQL
-- **Containerization:** Docker + Docker Compose
-
----
-
-## 🌐 Deployment Modes (REL 3.2.0.0)
-
-Magdi-AI supports **both Self-Hosted and SaaS deployments** from the same codebase.
-
-Deployment behavior is controlled automatically via the `DEPLOYMENT_MODE` setting.
-
-- **Self-Hosted**  
-  Default mode when running locally or when `DEPLOYMENT_MODE` is not set.
-
-- **SaaS**  
-  Hosted mode where certain features are intentionally restricted.
-
-No additional configuration or UI changes are required — Magdi-AI adapts automatically based on deployment mode.
-
----
-
-## 🔍 Feature Comparison: Self-Hosted vs SaaS
-
-| Feature / Capability                   | Self-Hosted | SaaS  |
-|----------------------------------------|-------------|-------|
-| MagdiPartner (Pair Programming)        | ✅ Yes      | ✅ Yes|
-| MagdiAnalyzer (Test Results Analysis)  | ✅ Yes      | ✅ Yes|
-| MagdiWriter (QA Documentation)         | ✅ Yes      | ✅ Yes|
-| MagdiSage (General Assistance)         | ✅ Yes      | ✅ Yes|
-| MagdiCreator (Test Generation Wizard)  | ✅ Yes      | ❌ No |
-| Create New Automation Frameworks       | ✅ Yes      | ❌ No |
-| Update Existing Automation Projects    | ✅ Yes      | ❌ No |
-| Screen Scrape Engine                   | ✅ Yes      | ❌ No |
-| Download Generated Project Bundles     | ✅ Yes      | ❌ No |
-| Local File System Access               | ✅ Yes      | ❌ No |
-| Zero Setup / Hosted Experience         | ❌ No       | ✅ Yes|
-
-> ℹ️ **Note:**  
-> SaaS mode is designed for exploration, analysis, and collaboration.  
-> Self-Hosted mode unlocks full project generation, updates, and file exports.
-
----
-
-## ⚙️ Running Magdi-AI Locally
-
-### 1️⃣ Clone the Repository
+### Self-Hosted
 
 git clone https://github.com/MaggiesWorld/magdi-community.git
 cd magdi-community
 
+### Windows
+install.magdi-ai.bat
 
-## Environment Setup
+### Linux/Mac
+chmod +x install.magdi-ai.sh
+./install.magdi-ai.sh
 
-Copy the example environment file:
-cp .env.example .env
-
-Update the following values:
-OPENAI_API_KEY=your_key_here
-X_API_KEY=your_secret_here
-RATE_LIMIT_PER_USER=20
-MAGDI_HOST_WORK_DIR=your_work_directory_path (default ./magdi-runs)
-
-Generate a secure secret key:
-python -c "import secrets; print(secrets.token_hex(32))"
-
-Run in Developer Mode:
-docker-compose --env-file .env up --build
-
-Application will be available at:
+### Open
 http://localhost:3000
 
-Run in Production Mode:
-docker-compose --env-file .env -f docker-compose.yml up
+🧠 How It Works
 
+Provide input (text, URL, or file)
+Magdi generates a project or QA artifact
+Follow instructions to run or review output
 
-## 🧪 Test Project (Automation Suite)
+Use AI agents to refine and improve
+🧩 Key Features
+🧙 Test Generation Wizard
+🕷️ Screen Scrape Engine
+🧑‍💻 MagdiPartner (Pair Programming)
+📊 MagdiAnalyzer (Results Analysis)
+📝 MagdiWriter (QA Documentation)
+🔍 MagdiSage (Research Assistant)
+📦 Executable Test Projects
 
-The repository includes a Playwright automation suite covering:
+🧪 What Makes Magdi-AI Different
 
-- Authentication
-- Chat UI
-- Test Generation Wizard
-- Screen Scrape flows
-- Project update scenarios
+Most tools help you execute tests faster.
 
-Run all tests:
-npx playwright test
+Magdi-AI helps you:
+→ Go from idea → working tests → execution → improvement
 
-Run a single test:
-npx playwright test tests/01-login.test.ts
+📜 License
+GNU GENERAL PUBLIC LICENSE
 
-Run with browser UI:
-npx playwright test --headed
+📚 Documentation
 
-
-## 🧩 API Overview (Backend)
-
-### Core Conversation & Agent APIs
-
-- `GET  /menu`  
-  Returns starter menu / greeting.
-
-- `POST /select`  
-  Selects an agent category and returns assistant metadata.
-
-- `POST /start_conversation`  
-  Starts a new persistent conversation thread.
-
-- `POST /conversation/upload`  
-  Upload files into an active conversation context.
-
-- `POST /chat`  
-  Sends a user message to the active agent.
-
-  ⚠️ **Important:**  
-  This endpoint **requires `multipart/form-data`**, even when no files are sent.  
-  Sending JSON will return `400 Bad Request`.
-
-- `POST /end_conversation`  
-  Gracefully closes a conversation thread.
-
----
-
-### Project & Artifact APIs
-
-- `GET /api/download?zip_id=<id>&disposable=1`  
-  Downloads a generated or updated project ZIP.
-
-  - `zip_id` maps to a generated artifact
-  - `disposable=1` deletes the ZIP after download
-  - Used by both **create** and **update** project flows
-
----
-
-### Authentication & User APIs
-
-- `POST /login`  
-  Authenticates a user.
-
-- `POST /register`  
-  Registers a new user account.
-
-- `GET  /validate-user`  
-  Validates an authenticated user session (JWT-based).
-
----
-
-### System & Metrics APIs
-
-- `GET /version`  
-  Returns backend application version info.
-
-- `GET /config/rate-limit`  
-  Returns daily token usage limits.
-
-- `GET /usage?user_id=<id>`  
-  Returns current token usage for a user.
-
-- `GET /metrics`  
-  Prometheus-compatible metrics endpoint.
-
-- `GET /metrics-update-visitors`  
-  Updates visitor gauge.
-
-- `GET /metrics-update-tokens`  
-  Updates token usage gauge.
+- 👉 [Getting Started](docs/getting-started.md)
+- 👉 [Deployment](docs/deployment.md)
+- 👉 [API Reference](docs/api.md)
+- 👉 [NPL Test Generation](docs/test-generation.md)
+- 👉 [Screen Scraping](docs/screen-scraping.md)
+- 👉 [Pair Programming](docs/magdi-partner.md)
+- 👉 [TroubleShooting](docs/troubleshooting.md)
+- 👉 [FAQ](docs/faq.md)
+- 👉 [Examples](examples/)
 
 
 
-## 🧭 Project Structure (Simplified)
 
-magdi-ai/
-├── backend/
-│   ├── app.py
-│   ├── assistants/
-│   ├── routes/
-│   └── ...
-├── frontend/
-│   ├── src/
-│   └── ...
-├── tests/            # Playwright automation
-├── examples/         # Sample specs & test results
-├── docker-compose.yml
-├── docker-compose.prod.yml
-└── README.md
 
-## 🛠 Troubleshooting
 
-### 🔄 Docker Cache Issues
-
-If changes are not reflecting:
-
-Stop containers:
-docker-compose down
-
-Remove volumes:
-docker volume ls
-docker volume rm <volume_name>
-
-Rebuild clean:
-docker-compose --env-file .env up --build --force-recreate
-
-If frontend still shows stale content:
-
-Clear browser cache
-
-Or open in Incognito
-
-Or run:
-docker builder prune
-
-## 📜 Version
-
-Magdi-AI REL 3.1.0.0
-
-## 🙏 Acknowledgements
-
-- OpenAI Assistants API
-- Docker
-- The open-source community ❤️
-
-## ✨ Contributing
-
-Fork → Improve → Submit a PR.
-Feedback and ideas are always welcome.
-
-## 💚 Support Magdi-AI
-
-If Magdi-AI helps you, consider supporting the project:
-
-- ☕ Buy Me a Coffee
-- ⭐ GitHub Sponsors
-- Open Collective
-- LibHunt
