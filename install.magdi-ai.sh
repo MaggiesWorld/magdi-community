@@ -1,54 +1,60 @@
-﻿#!/bin/bash
+@echo off
+setlocal
 
-echo "=========================================="
-echo "Magdi-AI Installer (Linux/Mac)"
-echo "=========================================="
+echo ==========================================
+echo Magdi-AI Installer (Windows)
+echo ==========================================
 
-# --- Check Docker ---
-if ! docker info > /dev/null 2>&1; then
-  echo ""
-  echo "ERROR: Docker is not running."
-  echo "Please start Docker and try again."
-  exit 1
-fi
+docker info >nul 2>&1
+if errorlevel 1 (
+    echo.
+    echo ERROR: Docker Desktop is not running.
+    echo Please start Docker Desktop and try again.
+    pause
+    exit /b 1
+)
 
-# --- Ensure .env exists ---
-if [ ! -f ".env" ]; then
-  echo "Creating .env from .env.example..."
-  cp .env.example .env
-  echo ""
-  echo "WARNING: Please update the .env file with your API keys and settings."
-  read -p "Press Enter to continue once ready..."
-fi
+if not exist ".env" (
+    echo Creating .env from .env.example...
+    copy .env.example .env >nul
+    echo.
+    echo WARNING: Please update the .env file with your API keys and settings.
+    echo Press any key to continue once ready...
+    pause >nul
+)
 
-# --- Check port 3000 ---
-if lsof -i :3000 > /dev/null 2>&1; then
-  echo ""
-  echo "ERROR: Port 3000 is already in use."
-  echo "Please stop the application using port 3000 and try again."
-  exit 1
-fi
+echo.
+echo ==========================================
+echo Stopping existing Magdi-AI containers...
+echo ==========================================
+docker compose down >nul 2>&1
 
-echo ""
-echo "=========================================="
-echo "Stopping existing Magdi-AI containers..."
-echo "=========================================="
-docker compose down > /dev/null 2>&1
+echo.
+echo ==========================================
+echo Pulling latest images...
+echo ==========================================
+docker compose pull
 
-echo ""
-echo "=========================================="
-echo "Starting Magdi-AI..."
-echo "=========================================="
-docker compose up -d
+echo.
+echo ==========================================
+echo Starting Magdi-AI with updated containers...
+echo ==========================================
+docker compose up -d --build --force-recreate
 
-if [ $? -ne 0 ]; then
-  echo ""
-  echo "ERROR: Failed to start containers."
-  exit 1
-fi
+if errorlevel 1 (
+    echo.
+    echo ERROR: Failed to start containers.
+    echo Port 3000 may already be in use by another application or container.
+    echo Please stop the conflicting service and try again.
+    pause
+    exit /b 1
+)
 
-echo ""
-echo "=========================================="
-echo "SUCCESS: Magdi-AI is running!"
-echo "Open: http://localhost:3000"
-echo "=========================================="
+echo.
+echo ==========================================
+echo SUCCESS: Magdi-AI is running!
+echo Open: http://localhost:3000
+echo ==========================================
+
+pause
+endlocal

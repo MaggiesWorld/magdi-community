@@ -31,9 +31,15 @@ docker compose down >nul 2>&1
 
 echo.
 echo ==========================================
-echo Starting Magdi-AI...
+echo Pulling latest images...
 echo ==========================================
-docker compose up -d
+docker compose pull
+
+echo.
+echo ==========================================
+echo Starting Magdi-AI with updated containers...
+echo ==========================================
+docker compose up -d --build --force-recreate
 
 if errorlevel 1 (
     echo.
